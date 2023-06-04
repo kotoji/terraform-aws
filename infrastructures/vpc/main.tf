@@ -42,10 +42,11 @@ resource "aws_subnet" "public" {
 
   tags = {
     "Name" = "main-public-${each.key}"
+    "main" = "public"
   }
 }
 
-// NAT Gateway はお金がかかるので ACL でインバウンドを制限することでプライベートセグメントにする
+// NAT Gateway はお金がかかるので ACL でインバウンドを制限することでプライベートセグメントを実現する
 resource "aws_subnet" "private" {
   for_each = toset(var.az_list)
 
@@ -56,7 +57,8 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "main-vprivate-${each.key}"
+    "Name" = "main-private-${each.key}"
+    "main" = "private"
   }
 }
 
@@ -106,9 +108,18 @@ resource "aws_route_table_association" "private" {
   subnet_id      = each.value.id
 }
 
-resource "aws_network_acl" "virtual-private" {
+resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = values(aws_subnet.private)[*].id
+
+  ingress {
+    rule_no    = 100
+    protocol   = -1
+    from_port  = 0
+    to_port    = 0
+    cidr_block = "10.0.0.0/16"
+    action     = "allow"
+  }
 
   egress {
     rule_no    = 100
@@ -120,6 +131,6 @@ resource "aws_network_acl" "virtual-private" {
   }
 
   tags = {
-    Name = "virtual-private"
+    Name = "private"
   }
 }
