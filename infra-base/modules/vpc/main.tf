@@ -7,7 +7,7 @@ module "vpc" {
   azs                     = var.azs
   public_subnets          = var.public_subnets
   public_subnet_tags      = var.public_subnet_tags
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   // unnecessary
   enable_nat_gateway     = false
