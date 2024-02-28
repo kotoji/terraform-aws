@@ -8,13 +8,9 @@ module "vpc" {
   // 10.0.128.0/20 -> (reserved)
   // 10.0.192.0/20 -> (reserved)
 
-  azs            = ["ap-northeast-1c", "ap-northeast-1d"]
-  public_subnets = ["10.0.0.0/20", "10.0.16.0/20"]
+  azs            = ["ap-northeast-1c", "ap-northeast-1d", "ap-northeast-1a"]
+  public_subnets = ["10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20"]
   public_subnet_tags = {
     subnet-type = "public"
-  }
-
-  tags = {
-    terraform = "true"
   }
 }
