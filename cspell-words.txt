@@ -1,0 +1,5 @@
+ithnote
+managedby
+kotoji
+emrserverless
+jsonencode
