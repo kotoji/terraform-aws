@@ -14,3 +14,11 @@ module "vpc" {
     subnet-type = "public"
   }
 }
+
+resource "aws_s3_bucket" "sandbox" {
+  bucket = "ithnote-sandbox"
+}
+
+resource "aws_s3tables_table_bucket" "sandbox" {
+  name = "ithnote-s3tables-sandbox"
+}

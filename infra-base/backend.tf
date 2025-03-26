@@ -1,18 +1,18 @@
 terraform {
   cloud {
-    organization = "kotojpn"
+    organization = "ithnote"
 
     workspaces {
       name = "infra-base"
     }
   }
 
-  required_version = ">= 1.5.6"
+  required_version = ">= 1.10.2"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.15.0"
+      version = "~> 5.92.0"
     }
   }
 }
